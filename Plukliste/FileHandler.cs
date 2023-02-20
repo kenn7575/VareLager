@@ -59,28 +59,5 @@ namespace Plukliste
                 }
             }
         }
-        public void ImportFactory()
-        {
-            if (!this.IsValid)
-            {
-                return;
-            }
-            foreach (var file in Files)
-            {
-                if (file.Substring(file.LastIndexOf(".")) == ".html")
-                {
-
-                }
-                if (file.Substring(file.LastIndexOf(".")) == ".xml")
-                {
-
-                }
-                if (file.Substring(file.LastIndexOf(".")) == ".csv")
-                {
-
-                }
-            }
-
-        }
     }
 }

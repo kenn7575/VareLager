@@ -8,7 +8,8 @@
         //Methods
         public DatabaseAccess()
         {
-            ConnectionString = "Server=10.130.54.79;" +
+            ConnectionString = 
+                "Server=10.130.54.79;" +
                 "Database=Varelager;" +
                 "Uid=sa;" +
                 "Password=1234";
