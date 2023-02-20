@@ -25,21 +25,7 @@ namespace Plukliste
         public bool IsValid => Validate();
 
         //methods
-        public bool Validate()
-        {
-
-            if (string.IsNullOrEmpty(ImportPath))
-            {
-                Console.WriteLine("Import path not set");
-                return false;
-            }
-            if (string.IsNullOrEmpty(ExportPath))
-            {
-                Console.WriteLine("Export path not set");
-                return false;
-            }
-            return true;
-        }
+        public abstract bool Validate();
         public virtual void ImportFiles()
         {
 

@@ -3,7 +3,7 @@
     public class DatabaseAccess
     {
         //fields
-        private string? ConnectionString;
+        protected string? ConnectionString;
 
         //Methods
         public DatabaseAccess()

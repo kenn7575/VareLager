@@ -17,7 +17,7 @@ namespace Plukliste
         public Pluklist Pluklist { get; set; }
         
         //methods
-        public bool Validate()
+        public override bool Validate()
         {
             if (Pluklist == null)
             {
@@ -30,9 +30,14 @@ namespace Plukliste
                 Console.ReadLine();
                 return false;
             }
-            if (Files.Count == 0)
+            if (string.IsNullOrEmpty(ImportPath))
             {
-                Console.WriteLine("No filesNames found");
+                Console.WriteLine("Import path not set");
+                return false;
+            }
+            if (string.IsNullOrEmpty(ExportPath))
+            {
+                Console.WriteLine("Export path not set");
                 return false;
             }
             return true;

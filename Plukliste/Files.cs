@@ -71,7 +71,7 @@ namespace Plukliste
             //TODO: this donsn't delete the file. only the variables.
             //the files should be deleated from Import 
         }
-        public bool validate()
+        public override bool Validate()
         {
             if (!Directory.Exists("filesToImport"))
             {
@@ -79,14 +79,14 @@ namespace Plukliste
                 Console.ReadLine();
                 return false;
             }
-            if (Files.Count == 0)
+            if (string.IsNullOrEmpty(ImportPath))
             {
-                Console.WriteLine("Folder is empty.");
+                Console.WriteLine("Import path not set");
                 return false;
             }
-            if (Pluklists.Count == 0)
+            if (string.IsNullOrEmpty(ExportPath))
             {
-                Console.WriteLine("Folder is empty.");
+                Console.WriteLine("Export path not set");
                 return false;
             }
             return true;
