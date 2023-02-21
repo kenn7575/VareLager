@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Plukliste
+namespace BL
 {
     public class Files : FileHandler
     {
@@ -104,7 +104,7 @@ namespace Plukliste
                 return;
             }
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"Plukliste {index + 1} af {Files.Count}");
+            Console.WriteLine($"BL {index + 1} af {Files.Count}");
             Console.WriteLine($"\nfile: {Files[index]}");
             Console.WriteLine("\n{0, -13}{1}", "Name:", Pluklists[index].Name);
             Console.WriteLine("{0, -13}{1}", "Forsendelse:", Pluklists[index].Forsendelse);

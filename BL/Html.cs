@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Plukliste
+namespace BL
 {
     public class Html : FileHandler
     {
@@ -60,7 +60,7 @@ namespace Plukliste
                         pluklist += line.ToString() + "\n";
                     }
                     pluklist += "</table>";
-                    updatedFile = updatedFile.Replace("[Plukliste]", pluklist);
+                    updatedFile = updatedFile.Replace("[BL]", pluklist);
 
                     UpdateFiles.Add(updatedFile);
                 }

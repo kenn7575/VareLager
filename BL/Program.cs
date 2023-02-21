@@ -6,7 +6,7 @@ using System.IO.Enumeration;
 using System.Text.RegularExpressions;
 using static System.Net.WebRequestMethods;
 
-namespace Plukliste
+namespace BL
 {
     class PluklisteProgram
     {

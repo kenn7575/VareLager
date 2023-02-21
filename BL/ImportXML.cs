@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Plukliste
+namespace BL
 {
     class ImportXML : IImportFile
     {

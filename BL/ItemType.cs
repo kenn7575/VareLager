@@ -1,4 +1,4 @@
-﻿namespace Plukliste
+﻿namespace BL
 {   
 public enum ItemType
 {

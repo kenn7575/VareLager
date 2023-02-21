@@ -1,4 +1,4 @@
-﻿namespace Plukliste
+﻿namespace BL
 {
     public class Pluklist
     {

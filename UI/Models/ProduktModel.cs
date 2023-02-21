@@ -1,8 +1,7 @@
-﻿namespace DA
+﻿namespace UI.Models
 {
-    public class Produkt
+    public class ProduktModel
     {
-        //fields
         public string ProduktID { get; set; }
         public string Title { get; set; }
         public int? QuantityInStock { get; set; }
@@ -11,4 +10,3 @@
         public string Description { get; set; }
     }
 }
- 
