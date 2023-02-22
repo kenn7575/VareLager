@@ -56,7 +56,33 @@ namespace BL
         }
         public void ExportFiles(int index)
         {
+            foreach (var line in Pluklists[index].Lines)
+            {
+                string stock = GetProductStock(line.ProductID);
+                if (!int.TryParse(stock, out _))
+                {
+                    Console.WriteLine("One or more products is not present in the database");
+                }
+                else
+                {
+                    if (int.Parse(stock) < line.Amount)
+                    { 
+                        Console.WriteLine("One or more products are not in stock.");
+                        return;
+                    }
+                    else
+                    {
+                        //update stock
+                        ProduktRepository pr = new ProduktRepository();
+                        List<Produkt> p = pr.Retrieve(line.ProductID);
+                        p[0].QuantityInStock -= line.Amount;
+                        p[0].HasChanges= true;
+                        pr.Save(p[0]);
+                    }
+                }
 
+
+            }
 
             var fileName = Files[index];
             fileName.Substring(1);
@@ -111,15 +137,27 @@ namespace BL
             Console.WriteLine("{0, -13}{1}", "Forsendelse:", Pluklists[index].Forsendelse);
             Console.WriteLine("{0, -13}{1}", "Adresse:", Pluklists[index].Adresse);
 
-            //TODO: Add adresse to screen print
+           
+
 
             Console.WriteLine("\n{0,-7}{1,-9}{2,-20}{3, -30}{4} ", "Antal", "Type", "Produktnr.", "Navn", "Antal på lager.");
             foreach (var item in Pluklists[index].Lines)
             {
                 string LagerStatus = GetProductStock(item.ProductID);
-                Console.Write("{0,-7}{1,-9}{2,-20}{3}", item.Amount, item.Type, item.ProductID, item.Title);
-                Console.ForegroundColor= ConsoleColor.Magenta;
-                Console.WriteLine( " "+LagerStatus);
+                
+                Console.Write("{0,-7}{1,-9}{2,-20}{3, -30}", item.Amount, item.Type, item.ProductID, item.Title);
+                if(int.TryParse(LagerStatus, out var status)) {
+                    if (int.Parse(LagerStatus) < item.Amount)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    else if (int.Parse(LagerStatus) >= item.Amount)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                }
+                
+                Console.WriteLine(LagerStatus);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
@@ -134,10 +172,11 @@ namespace BL
             }
             catch (Exception ex)
             {
-                output = "Unknown.";
+                output = "Ukendt";
             }
         return output;
             
         }
+       
     }
 }

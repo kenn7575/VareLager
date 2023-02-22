@@ -17,6 +17,7 @@ namespace DA
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
+               
                 string Query = "SELECT * FROM Products WHERE ProduktID = \'"+ Id+"\'";
                 
                 using (SqlCommand command = new SqlCommand(Query, connection))

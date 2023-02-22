@@ -55,6 +55,7 @@ namespace BL
                     break;
                 case 'A':
                     //Move files to import directory
+
                     xmlFiles.ExportFiles(CurrentFileIndex);
                     if (CurrentFileIndex == xmlFiles.Files.Count) CurrentFileIndex--;
                     break;
