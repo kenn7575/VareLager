@@ -10,7 +10,7 @@ namespace BL
     public class ProduktRepository
     {
         //methods 
-        public List<Produkt> Retrieve(int Id = 0)
+        public List<Produkt> Retrieve(string Id)
         {
             var products = new List<Produkt>();
             var da = new ProduktDataAccess();
@@ -28,8 +28,11 @@ namespace BL
             return products;
         }
         //update product
-        public void Update(Produkt product)
+        public void Save(Produkt product)
         {
+            if (!product.IsValid) return;
+            if (!product.HasChanges) return;
+
             var da = new ProduktDataAccess();
             var productDa = new DA.Produkt()
             {
@@ -42,7 +45,16 @@ namespace BL
                 Price = product.Price
 
             };
-            da.Update(productDa);
+            if (product.IsNeW)
+            {
+                da.Create(productDa);
+            }
+            else
+            {
+                da.Update(productDa);
+            }
+            
+           
            
         }
     }

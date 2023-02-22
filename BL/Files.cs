@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -112,13 +113,31 @@ namespace BL
 
             //TODO: Add adresse to screen print
 
-            Console.WriteLine("\n{0,-7}{1,-9}{2,-20}{3}", "Antal", "Type", "Produktnr.", "Navn");
+            Console.WriteLine("\n{0,-7}{1,-9}{2,-20}{3, -30}{4} ", "Antal", "Type", "Produktnr.", "Navn", "Antal på lager.");
             foreach (var item in Pluklists[index].Lines)
             {
-                Console.WriteLine("{0,-7}{1,-9}{2,-20}{3}", item.Amount, item.Type, item.ProductID, item.Title);
+                string LagerStatus = GetProductStock(item.ProductID);
+                Console.Write("{0,-7}{1,-9}{2,-20}{3}", item.Amount, item.Type, item.ProductID, item.Title);
+                Console.ForegroundColor= ConsoleColor.Magenta;
+                Console.WriteLine( " "+LagerStatus);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
-
+        public string GetProductStock(string ID) { 
+        string output = "";
+            ProduktRepository pr = new ProduktRepository();
+            try
+            {
+            List<Produkt> produkt = pr.Retrieve(ID);
+                output = produkt[0].QuantityInStock.ToString();
+            }
+            catch (Exception ex)
+            {
+                output = "Unknown.";
+            }
+        return output;
+            
+        }
     }
 }

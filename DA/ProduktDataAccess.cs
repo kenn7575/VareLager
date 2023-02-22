@@ -10,18 +10,15 @@ namespace DA
 {
     public class ProduktDataAccess : DatabaseAccess
     {
-        public string Retrieve(int Id = 0)
+        public string Retrieve(string Id)
         {
             var products = new List<Produkt>();
             
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string Query = "SELECT * FROM Products"; //TODO: Change to correct table name
-                if (Id > 0)
-                {
-                    Query += " WHERE ProduKtID = " + Id; //TODO: Change to correct location
-                }
+                string Query = "SELECT * FROM Products WHERE ProduktID = \'"+ Id+"\'";
+                
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -50,7 +47,7 @@ namespace DA
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string Query = "SELECT * FROM Products"; //TODO: Change to correct table name
+                string Query = "SELECT * FROM Products";
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -86,7 +83,7 @@ namespace DA
                     " QuantityInStock = @QuantityInStock," +
                     " Price = @Price," +
                     " Location = @Location"+
-                    " WHERE ProductID = @ProduktID"; //TODO: Change to correct table name
+                    " WHERE ProduktID = @ProduktID";
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     command.Parameters.AddWithValue("@ProduktID", product.ProduktID);
@@ -94,7 +91,27 @@ namespace DA
                     command.Parameters.AddWithValue("@Description", product.Description);
                     command.Parameters.AddWithValue("@Location", product.Location);
                     command.Parameters.AddWithValue("@QuantityInStock", product.QuantityInStock);
-                    command.Parameters.AddWithValue("@Price", product.Price);
+                    command.Parameters.AddWithValue("@Price", (float)product.Price);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        //method that creates a new product in the database
+        public void Create(Produkt product)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                string Query = "INSERT INTO Products (ProduktID, Title, Description, Location, QuantityInStock, Price) " +
+                    "VALUES (@ProduktID, @Title, @Description, @Location, @QuantityInStock, @Price)";
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProduktID", product.ProduktID);
+                    command.Parameters.AddWithValue("@Title", product.Title);
+                    command.Parameters.AddWithValue("@Description", product.Description);
+                    command.Parameters.AddWithValue("@Location", product.Location);
+                    command.Parameters.AddWithValue("@QuantityInStock", product.QuantityInStock);
+                    command.Parameters.AddWithValue("@Price", (float)product.Price);
                     command.ExecuteNonQuery();
                 }
             }

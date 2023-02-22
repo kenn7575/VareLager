@@ -30,12 +30,6 @@ namespace UI.Controllers
             return View(produktModels);
         }
 
-        // GET: ProduktController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: ProduktController/Create
         public ActionResult Create()
         {
@@ -45,10 +39,24 @@ namespace UI.Controllers
         // POST: ProduktController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ProduktModel produkt)
         {
             try
             {
+                //save product to database
+                ProduktRepository repo = new ProduktRepository();
+                BL.Produkt productToSave = new BL.Produkt()
+                {
+                    ProduktID = produkt.ProduktID,
+                    Title = produkt.Title,
+                    Description = produkt.Description,
+                    Price = produkt.Price,
+                    QuantityInStock = produkt.QuantityInStock,
+                    Location = produkt.Location,
+                    HasChanges = true,
+                    IsNeW = true,
+                };
+                repo.Save(productToSave);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -58,18 +66,45 @@ namespace UI.Controllers
         }
 
         // GET: ProduktController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            ProduktRepository repo = new ProduktRepository();
+            List<BL.Produkt> products = repo.Retrieve(id);
+
+            if (products.Count > 0)
+            {
+                ProduktModel produktModel = new();
+                produktModel.ProduktID = products[0].ProduktID;
+                produktModel.Title = products[0].Title;
+                produktModel.Description = products[0].Description;
+                produktModel.Price = products[0].Price;
+                produktModel.QuantityInStock = products[0].QuantityInStock;
+                produktModel.Location = products[0].Location;
+                return View(produktModel);
+            }
+            return (NotFound());
         }
 
         // POST: ProduktController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string id, ProduktModel produkt)
         {
             try
             {
+                //save product to database
+                ProduktRepository repo = new ProduktRepository();
+                BL.Produkt productToSave = new BL.Produkt()
+                {
+                    ProduktID = id,
+                    Title = produkt.Title,
+                    Description = produkt.Description,
+                    Price = produkt.Price,
+                    QuantityInStock = produkt.QuantityInStock,
+                    Location = produkt.Location,
+                    HasChanges = true,
+                };
+                repo.Save(productToSave);
                 return RedirectToAction(nameof(Index));
             }
             catch
