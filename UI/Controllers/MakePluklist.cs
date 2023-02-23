@@ -15,13 +15,13 @@ namespace UI.Controllers
         }
 
 
-        // GET: MakePluklist/Create
+       
         public ActionResult CreatePluklist()
         {
             return View();
         }
 
-        // POST: MakePluklist/Create
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreatePluklist(Pluklist pluklist)
@@ -43,15 +43,15 @@ namespace UI.Controllers
 
 
 
-        // GET: MakePluklist/Edit/5
-        public ActionResult EditPluklist(Pluklist p)
+        
+        public ActionResult EditPluklist()
         {
             PluklistModel pluklistModel = PluklistModel.GetInstance();
 
             return View(pluklistModel);
         }
 
-        // POST: MakePluklist/Edit/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditPluklist(int id, Pluklist pluklist)
@@ -71,17 +71,42 @@ namespace UI.Controllers
             }
         }
 
+        public ActionResult EditPluklistLine()
+        {
+            PluklistModel pluklistModel = PluklistModel.GetInstance();
+            ItemModel item = pluklistModel.Lines.Find(x => x.HasChanced == true);
+            return View(item);
+        }
 
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPluklistLine(ItemModel itemModel)
+        {
+            try
+            {
+                
+                PluklistModel pluklistModel = PluklistModel.GetInstance();
+                pluklistModel.Lines.Remove(pluklistModel.Lines.Find(x => x.HasChanced == true));
+                pluklistModel.AddItem(itemModel);
+                pluklistModel.Lines.Find(x => x.ProductID == itemModel.ProductID);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         public ActionResult AddPluklistLine()
         {
             return View();
         }
 
-        // POST: MakePluklist/Delete/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddPluklistLine(Item item)
+        public ActionResult AddPluklistLine(ItemModel item)
         {
             try
             {
@@ -98,19 +123,15 @@ namespace UI.Controllers
 
 
 
-        // GET: MakePluklist/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: MakePluklist/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeletePliklistLine()
         {
+
             try
             {
+                PluklistModel pluklistModel = PluklistModel.GetInstance();
+                pluklistModel.Lines.Remove(pluklistModel.Lines.Find(x => x.HasChanced == true));
                 return RedirectToAction(nameof(Index));
             }
             catch

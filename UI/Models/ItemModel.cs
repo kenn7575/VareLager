@@ -8,5 +8,6 @@ namespace UI.Models
         public string Title { get; set; }
         public ItemType Type { get; set; }
         public int Amount { get; set; }
+        public bool HasChanced { get; set; }
     }
 }

@@ -1,31 +1,35 @@
 ﻿@model UI.Models.ItemModel
 
 @{
-    ViewData["Title"] = "Tilføj prodikt";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Tilføj produkt</h1>
+<h1>Rediger produkt</h1>
 
+<h4>ProduktModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddPluklistLine">
+        <form asp-action="EditPluklistLine">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="ProductID" class="control-label"></label>
                 <input asp-for="ProductID" class="form-control" />
                 <span asp-validation-for="ProductID" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Amount" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
+            
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

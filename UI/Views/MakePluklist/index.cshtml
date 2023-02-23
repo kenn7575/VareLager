@@ -44,17 +44,13 @@ else
                     @Html.DisplayFor(model => model.Forsendelse)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit Pluklist", "editPluklist", new {id = 1, pluklist = Model })
+                    @Html.ActionLink("Rediger", "EditPluklist", new {})
                 </td>
             </tr>
         </thead>
     </table>
     <h2>Produkter</h2>
     <table class="table">
-
-
-
-
         <thead>
 
             <tr>
@@ -62,16 +58,16 @@ else
                     ProduktID
                 </th>
                 <th>
-                    Adresse
+                    Beskrivelse
                 </th>
                 <th>
-                    Forsendelse
+                    Type
                 </th>
                 <th>
                     Antal
                 </th>
                 <td>
-                    @Html.ActionLink("Tilføj produkt", "AddPluklistLine", new {pluklist = model })
+                    @Html.ActionLink("Tilføj produkt", "AddPluklistLine", new {pluklist = Model })
                 </td>
             </tr>
         </thead>
@@ -93,10 +89,11 @@ else
                     </td>
 
                     <td>
-                        @Html.ActionLink("EditLine", "EditLine", new { id = line })
-
+                        @Html.ActionLink("Rediger", "EditPluklistLine", line.HasChanced =true, new { line = line })
+                        @Html.ActionLink("Slet", "index", line.HasChanced =true, new {})
+                        
+                        
                     </td>
-
                 </tr>
             }
         </tbody>

@@ -5,7 +5,7 @@ namespace UI.Models
     public class PluklistModel
     {
         private PluklistModel() {
-            Lines = new List<Item>();
+            Lines = new List<ItemModel>();
         }
 
        
@@ -28,9 +28,9 @@ namespace UI.Models
         public string Name { get; set; }
         public string Adresse { get; set; }
         public string Forsendelse { get; set; }
-        public List<Item> Lines { get; set; }
+        public List<ItemModel> Lines { get; set; }
 
-        public void AddItem(Item item)
+        public void AddItem(ItemModel item)
         {
             Lines.Add(item);
         }
