@@ -116,7 +116,7 @@ namespace UI.Controllers
         // GET: ProduktController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: ProduktController/Delete/5

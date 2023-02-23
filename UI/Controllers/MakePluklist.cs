@@ -123,9 +123,7 @@ namespace UI.Controllers
 
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeletePliklistLine()
+        public ActionResult DeletePluklistLine()
         {
 
             try

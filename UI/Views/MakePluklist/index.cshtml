@@ -89,9 +89,8 @@ else
                     </td>
 
                     <td>
-                        @Html.ActionLink("Rediger", "EditPluklistLine", line.HasChanced =true, new { line = line })
-                        @Html.ActionLink("Slet", "index", line.HasChanced =true, new {})
-                        
+                        @Html.ActionLink("Rediger", "EditPluklistLine", line.HasChanced =true)
+                        @Html.ActionLink("Delete", "DeletePluklistLine", line.HasChanced =true)
                         
                     </td>
                 </tr>
