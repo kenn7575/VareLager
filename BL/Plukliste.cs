@@ -2,9 +2,9 @@
 {
     public class Pluklist
     {
-        public string? Name;
-        public string? Forsendelse;
-        public string? Adresse;
+        public string? Name { get; set; }
+        public string? Forsendelse { get; set; }
+        public string? Adresse { get; set; }
         public bool IsValid => Validate();
         public List<Item> Lines = new List<Item>();
         public void AddItem(Item item) { Lines.Add(item); }

@@ -16,7 +16,7 @@ namespace UI.Controllers
             
             foreach (BL.Produkt product in produkts)
             {
-                // Try autoparser en anden gang
+                
                 ProduktModel produktModel = new();
                 produktModel.ProduktID = product.ProduktID;
                 produktModel.Title = product.Title;
