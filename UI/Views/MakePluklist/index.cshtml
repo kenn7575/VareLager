@@ -95,7 +95,8 @@ else
 
                     <td>
                         @Html.ActionLink("Rediger", "EditPluklistLine", line.HasChanced =true)
-                        @Html.ActionLink("Delete", "DeletePluklistLine", line.HasChanced =true)
+                        <a  asp-action="DeletePluklistLine">Delete</a>
+                        
                         
                     </td>
                 </tr>

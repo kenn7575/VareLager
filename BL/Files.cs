@@ -50,6 +50,8 @@ namespace BL
                     return new ImportXML();
                 case ".csv":
                     return new ImportCSV();
+                case ".json":
+                    return new ImportJSON();
                 default:
                     throw new Exception("Unknown file type");
             }
