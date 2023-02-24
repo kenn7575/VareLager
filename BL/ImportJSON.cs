@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace BL
 {
-    internal class ImportJSON
+    public class ImportJSON : IImportFile
     {
         public Pluklist Read(string path)
         {

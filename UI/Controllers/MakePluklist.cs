@@ -144,7 +144,7 @@ namespace UI.Controllers
             PluklistModel pm = PluklistModel.GetInstance();
             if (pm.Validate())
             {
-                List <Item> blItems = new List<Item>();
+                List<Item> blItems = new List<Item>();
                 foreach (ItemModel item in pm.Lines)
                 {
 
@@ -157,20 +157,22 @@ namespace UI.Controllers
                         Title = item.Title,
                     };
                     blItems.Add(blItem);
-                    
+
                 }
                 Pluklist p = new Pluklist()
                 {
                     Name = pm.Name,
                     Adresse = pm.Adresse,
                     Forsendelse = pm.Forsendelse,
-                    Lines = blItems;
-                }
+                    Lines = blItems
+                };
 
 
-            GenerateJson generateJson = new GenerateJson();
+            GenerateJSON generateJson = new();
             generateJson.Generate(p);
-                
+
+
+                return RedirectToAction(nameof(Index));
             }
             else
             {

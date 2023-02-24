@@ -1,4 +1,10 @@
-﻿@model UI.Models.PluklistModel
+﻿<head>
+    <link rel="stylesheet" href="~/css/FunStuff.css" asp-append-version="true" />
+    
+
+</head>
+
+@model UI.Models.PluklistModel
 
 @{
     ViewData["Title"] = "Index";
@@ -17,7 +23,7 @@
 
 else
 {
-    <button asp-action="GenerateJson" class="btn btn-primary ">Save and export</button>
+    <a asp-action="GenerateJson" class="btn btn-primary ">Save and export</a>
 
     <br />
     <h2>Info</h2>
@@ -105,6 +111,3 @@ else
     </table>
    
 }
-
-
-
