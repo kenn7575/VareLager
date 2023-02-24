@@ -137,5 +137,45 @@ namespace UI.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult GenerateJson()
+        {
+            PluklistModel pm = PluklistModel.GetInstance();
+            if (pm.Validate())
+            {
+                List <Item> blItems = new List<Item>();
+                foreach (ItemModel item in pm.Lines)
+                {
+
+                    Item blItem = new Item()
+                    {
+
+                        Type = item.Type,
+                        Amount = item.Amount,
+                        ProductID = item.ProductID,
+                        Title = item.Title,
+                    };
+                    blItems.Add(blItem);
+                    
+                }
+                Pluklist p = new Pluklist()
+                {
+                    Name = pm.Name,
+                    Adresse = pm.Adresse,
+                    Forsendelse = pm.Forsendelse,
+                    Lines = blItems;
+                }
+
+
+            GenerateJson generateJson = new GenerateJson();
+            generateJson.Generate(p);
+                
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }
