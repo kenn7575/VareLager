@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Text.Json;
+using Newtonsoft.Json;
+using Microsoft.VisualBasic;
 
 namespace BL
 {
@@ -14,7 +16,13 @@ namespace BL
         {
             using (FileStream fileStream = File.OpenRead(path))
             {
-                Pluklist pluklist = JsonSerializer.Deserialize<Pluklist>(fileStream);
+                string data = "";
+                using (var sr = new StreamReader(fileStream))
+                {
+                    data = sr.ReadToEnd();
+                }
+
+                Pluklist pluklist = JsonConvert.DeserializeObject<Pluklist>(data);
                 return pluklist;
             }
         }

@@ -6,7 +6,7 @@
         public string? Forsendelse { get; set; }
         public string? Adresse { get; set; }
         public bool IsValid => Validate();
-        public List<Item> Lines = new List<Item>();
+        public List<Item> Lines { get; set; }
         public void AddItem(Item item) { Lines.Add(item); }
         public bool Validate()
         {
