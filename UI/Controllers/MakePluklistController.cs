@@ -5,7 +5,7 @@ using UI.Models;
 
 namespace UI.Controllers
 {
-    public class MakePluklist : Controller
+    public class MakePluklistController : Controller
     {
         // GET: MakePluklist
         public ActionResult Index()

@@ -1,0 +1,205 @@
+﻿@model IEnumerable<UI.Models.PluklistModel>
+<head>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</head>
+@{
+    ViewData["Title"] = "index";
+}
+
+<h1>@Model.Count() Aktive pluklister</h1>
+
+
+
+<div id="hero-carousel" class="carousel slide" data-bs-interval="false">
+
+
+    <div class="carousel-inner">
+        @{bool first = true;}
+        @foreach (var item in Model)
+        {
+            
+            if(first == true)
+            {
+                first = false;
+                <div id="mySlider" class="carousel-item active" >
+                    <div style="height: fit-content; background-color: #fff;">
+                        @*Table *@
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Adresse)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Forsendelse)
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Adresse)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Forsendelse)
+                                    </td>
+
+                                </tr>
+                            </thead>
+                        </table>
+                        <h2 class="text-black">Produkter</h2>
+                        <table class="table">
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        ProduktID
+                                    </th>
+                                    <th>
+                                        Beskrivelse
+                                    </th>
+                                    <th>
+                                        Type
+                                    </th>
+                                    <th>
+                                        Antal
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var line in item.Lines)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.ProductID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.Type)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.Amount)
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            }
+
+            else
+            {
+                
+                <div id="mySlider" class="carousel-item">
+                    <div style="height: fit-content; background-color: #fff;">
+                        @*Table *@
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Adresse)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Forsendelse)
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Adresse)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Forsendelse)
+                                    </td>
+
+                                </tr>
+                            </thead>
+                        </table>
+                        <h2 class="text-black">Produkter</h2>
+                        <table class="table">
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        ProduktID
+                                    </th>
+                                    <th>
+                                        Beskrivelse
+                                    </th>
+                                    <th>
+                                        Type
+                                    </th>
+                                    <th>
+                                        Antal
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var line in item.Lines)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.ProductID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.Type)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => line.Amount)
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            }
+           
+                
+
+        }
+
+
+    </div>
+    <button style=" transform: translateX(-130px) scale(1.2); filter: invert(100%);" class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button style=" transform: translateX(130px); filter: invert(100%); "class=" carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"  aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<style defer src="/js/slider.js"></style>
+

@@ -12,7 +12,7 @@ namespace BL
         public string Title { get; set; }
         public ItemType Type { get; set; }
         public int Amount { get; set; }
-        public string ToString()
+        public override string ToString()
         {
             return $"<tr><td>{Title}</td><td>{Amount}</td></tr>";
         }

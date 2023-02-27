@@ -4,7 +4,7 @@ namespace UI.Models
 {
     public class PluklistModel
     {
-        private PluklistModel() {
+        public PluklistModel() {
             Lines = new List<ItemModel>();
         }
 
