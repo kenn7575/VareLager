@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Diagnostics;
+using System.Text.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 
 namespace BL
 {
@@ -12,18 +15,13 @@ namespace BL
     {
         public void Generate(Pluklist pluklist)
         {
-            
-            //string json = JsonSerializer.Serialize<Pluklist>(pluklist);
-            string json2 = "{" +
-                "\"Name\":\"" + pluklist.Name + "\"," +
-                "\"Adresse\":\"" + pluklist.Adresse + "\"," +
-                "\"Forsendelse\":\"" + pluklist.Forsendelse + "\"," +
-                "\"Items\":" + JsonSerializer.Serialize<List<Item>>(pluklist.Lines)+
-                "}";
 
+            string json = JsonConvert.SerializeObject(pluklist);
+            
+            
             Directory.CreateDirectory("filesToImport");
             
-            File.WriteAllText("filesToImport\\" + pluklist.Name + ".json", json2);
+            File.WriteAllText("filesToImport\\" + pluklist.Name + ".json", json);
         }
     }
 }
