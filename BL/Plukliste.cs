@@ -2,6 +2,11 @@
 {
     public class Pluklist
     {
+        public Pluklist() { 
+        
+            //init lines
+            Lines = new List<Item>();
+        }
         public string? Name { get; set; }
         public string? Forsendelse { get; set; }
         public string? Adresse { get; set; }
