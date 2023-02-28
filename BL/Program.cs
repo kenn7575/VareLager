@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.IO.Enumeration;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using static System.Net.WebRequestMethods;
 
@@ -56,7 +57,7 @@ namespace BL
                 case 'A':
                     //Move files to import directory
 
-                    xmlFiles.ExportFiles(CurrentFileIndex);
+                    xmlFiles.ExportFiles(CurrentFileIndex); 
                     if (CurrentFileIndex == xmlFiles.Files.Count) CurrentFileIndex--;
                     break;
                 case 'P':
@@ -64,7 +65,25 @@ namespace BL
                     htmlFile.Pluklist = pluklist;
                     htmlFile.ImportFiles();
                     htmlFile.UpdateFiles();
-                    htmlFile.ExportFiles(2);
+                    foreach (var line in htmlFile.Pluklist.Lines)
+                    {
+                        if (line.Type == ItemType.Print)
+                        {
+                            if (line.ProductID == "PRINT-OPGRADE")
+                            {
+                                htmlFile.ExportFiles(0);
+                            }
+                            if(line.ProductID == "PRINT-OPSIGELSE") { 
+                                htmlFile.ExportFiles(1);
+
+                            }
+                            if (line.ProductID == "PRINT-WELCOME") { 
+                                htmlFile.ExportFiles(2);
+
+                            }
+                        }
+                    }
+                    
                     break;
             }
         }

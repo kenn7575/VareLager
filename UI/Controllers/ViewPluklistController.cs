@@ -1,5 +1,6 @@
 ﻿using BL;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using UI.Models;
 
 namespace UI.Controllers
@@ -8,14 +9,16 @@ namespace UI.Controllers
     {
         public IActionResult Index()
         {
-            BL.Files Files = new("filesToImport", "export");
-            Files.ImportFiles();
-
+            BL.Files files = new("filesToImport", "export");
+            files.ImportFiles();
+            
             List<PluklistModel> pluklister = new();
-            foreach (var pluklist in Files.Pluklists)
+            int index = 0;
+            foreach (var pluklist in files.Pluklists)
             {
+
                 List<ItemModel> itemModels = new();
-                foreach(var item in pluklist.Lines)
+                foreach (var item in pluklist.Lines)
                 {
                     ItemModel im = new ItemModel
                     {
@@ -25,20 +28,53 @@ namespace UI.Controllers
                         Type = item.Type
                     };
                     itemModels.Add(im);
+
                 }
-                PluklistModel pm = new PluklistModel
-                {
-                    Name = pluklist.Name,
-                    Adresse = pluklist.Adresse,
-                    Forsendelse = pluklist.Forsendelse,
-                    Lines = itemModels
-                };
+                var fileName = files.Files[index];
+                index++;
+                PluklistModel pm = PluklistModel.GetInstance();
+                
+                    pm.Name = pluklist.Name;
+                    pm.Adresse = pluklist.Adresse;
+                    pm.Forsendelse = pluklist.Forsendelse;
+                    pm.Lines = itemModels;
+                    pm.FileName = fileName;
+
                 pluklister.Add(pm);
 
             }
 
             //View takes IEnumerable<PluklistModel> as input
             return View(pluklister.AsEnumerable());
+        }
+        [HttpPost]
+        public IActionResult Afslut(PluklistModel pluklistModel)
+        {
+            List<Item> items = new();
+            foreach (var itemModel in pluklistModel.Lines)
+            {
+                Item item = new()
+                {
+                    ProductID = itemModel.ProductID,
+                    Amount = itemModel.Amount,
+                    Title = itemModel.Title,
+                    Type = itemModel.Type
+                };
+                items.Add(item);
+            }
+            Pluklist pluklist = new()
+            {
+                Name = pluklistModel.Name,
+                Adresse = pluklistModel.Adresse,
+                Forsendelse = pluklistModel.Forsendelse,
+                Lines = items
+            };
+            BL.Files files = new("filesToImport", "export");
+            files.Pluklists.Add(pluklist);
+            files.Files.Add(pluklistModel.FileName);
+
+            files.ExportFiles(1);
+            return View();
         }
     }
 }

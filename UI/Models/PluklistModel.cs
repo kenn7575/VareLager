@@ -29,6 +29,7 @@ namespace UI.Models
         public string Adresse { get; set; }
         public string Forsendelse { get; set; }
         public List<ItemModel> Lines { get; set; }
+        public string FileName { get; set; }
 
         public void AddItem(ItemModel item)
         {

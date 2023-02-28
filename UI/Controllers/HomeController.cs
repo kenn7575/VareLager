@@ -19,7 +19,7 @@ namespace UI.Controllers
         }
 
         public IActionResult Privacy()
-        {
+        { 
             return View();
         }
 
