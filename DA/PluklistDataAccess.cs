@@ -66,7 +66,7 @@ namespace DA
         }
         
         //retreve all pluklists
-        public string Retrieve()
+        public string Retrieve() 
         {
             List<Pluklist> pluklists = new();
             Item item = new();
@@ -90,7 +90,6 @@ namespace DA
                                 CreateDate = (DateTime)reader["DateCreated"],
                                 FinishedDateDate = (DateTime)reader["DateFinished"],
                                 OrderItemId = reader["OrderItem"] as string,
-                                
                             };
                             pluklists.Add(pluklist);
                         }

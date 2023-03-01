@@ -9,9 +9,10 @@ namespace DA
     public class OrderItem
     {
         //properties
-        public string OrderItemId { get; set; }
-        public int Quantity { get; set; }
-        public string ProductId { get; set; }
-        public float SalesPrice { get; set; }
+        public string? OrderItemId { get; set; }
+        public int? Quantity { get; set; }
+        public string? ProductId { get; set; }
+        public float? SalesPrice { get; set; }
     }
 }
+
