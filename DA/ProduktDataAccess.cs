@@ -33,6 +33,7 @@ namespace DA
                             product.Location = reader["Location"] as string;
                             product.QuantityInStock = reader["QuantityInStock"] as int?;
                             product.Price = reader["Price"] as double?;
+                            product.Type = reader["Type"] as string;
 
                             products.Add(product);
                         }
@@ -62,6 +63,7 @@ namespace DA
                             product.Location = reader["Location"] as string;
                             product.QuantityInStock = reader["QuantityInStock"] as int?;
                             product.Price = reader["Price"] as double?;
+                            product.Type = reader["Type"] as string;
 
                             products.Add(product);
                         }

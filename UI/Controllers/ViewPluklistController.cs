@@ -55,7 +55,7 @@ namespace UI.Controllers
             {
                 Item item = new()
                 {
-                    ProductID = itemModel.ProductID,
+                    ProductId = itemModel.ProductID,
                     Amount = itemModel.Amount,
                     Title = itemModel.Title,
                     Type = itemModel.Type

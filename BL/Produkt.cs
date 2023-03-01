@@ -14,6 +14,7 @@ namespace BL
         public string Location { get; set; }
         public double? Price { get; set; }
         public string Description { get; set; }
+        public string Type { get; set; }
 
         //validate
         public override bool Validate()
@@ -24,6 +25,7 @@ namespace BL
             if (string.IsNullOrWhiteSpace(Title)) return false;
             if (string.IsNullOrWhiteSpace(Location)) return false;
             if (string.IsNullOrWhiteSpace(Description)) return false;
+            if (string.IsNullOrWhiteSpace(Type)) return false;
             if (QuantityInStock == null) return false;
             if (Price == null) return false;
             return true;

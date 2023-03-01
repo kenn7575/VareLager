@@ -153,7 +153,7 @@ namespace UI.Controllers
 
                         Type = item.Type,
                         Amount = item.Amount,
-                        ProductID = item.ProductID,
+                        ProductId = item.ProductID,
                         Title = item.Title,
                     };
                     blItems.Add(blItem);
