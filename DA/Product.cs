@@ -1,4 +1,4 @@
-﻿using BL;
+﻿using Shared;
 
 namespace DA
 {

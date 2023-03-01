@@ -2,10 +2,7 @@
 {
     public class DatabaseAccess
     {
-        //fields
-        protected string? ConnectionString;
-
-        //Methods
+        //Constructor
         public DatabaseAccess()
         {
             ConnectionString = 
@@ -14,5 +11,8 @@
                 "Uid=sa;" +
                 "Password=1234";
         }
+        
+        //fields
+        protected string? ConnectionString;
     }
 }

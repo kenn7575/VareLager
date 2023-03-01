@@ -1,14 +1,11 @@
-﻿using BL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shared;
+
 
 namespace DA
 {
     public class Item
     {
+        //properties
         public string ProductId { get; set; }
         public string Title { get; set; }
         public ItemType Type { get; set; }

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DA
 {
     public class Pluklist
     {
+        //constructor
         public Pluklist() {
          Items = new List<Item>();
         }
-
-
+        
+        //properties
         public string PluklistId { get; set; }
         public string Name { get; set; }
         public string shipping { get; set; }

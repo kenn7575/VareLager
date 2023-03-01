@@ -1,4 +1,4 @@
-﻿using BL;
+﻿using Shared;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -14,13 +14,13 @@ namespace DA
         public string Retrieve(string Id)
         {
             var products = new List<Product>();
-            
+
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-               
-                string Query = "SELECT * FROM Products WHERE ProductId = \'"+ Id+"\'";
-                
+
+                string Query = "SELECT * FROM Products WHERE ProductId = \'" + Id + "\'";
+
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -34,14 +34,20 @@ namespace DA
                             product.Location = reader["Location"] as string;
                             product.QuantityInStock = reader["QuantityInStock"] as int?;
                             product.Price = reader["Price"] as double?;
-                            product.Type = reader["Type"] as string;
-
+                            if ((int)reader["Type"] == 0)
+                            {
+                                product.Type = ItemType.Fysisk;
+                            }
+                            else
+                            {
+                                product.Type = ItemType.Print;
+                            }
                             products.Add(product);
                         }
                     }
                 }
             }
-            return JsonSerializer.Serialize(products); 
+            return JsonSerializer.Serialize(products);
         }
         //method that retreves all products from the database
         public string Retrieve()
@@ -64,14 +70,14 @@ namespace DA
                             product.Location = reader["Location"] as string;
                             product.QuantityInStock = reader["QuantityInStock"] as int?;
                             product.Price = reader["Price"] as double?;
-                            product.Type = (ItemType)Enum.Parse(typeof(ItemType), reader["Type"] as string) ;
+                            product.Type = (ItemType)Enum.Parse(typeof(ItemType), reader["Type"] as string);
 
                             products.Add(product);
                         }
                     }
                 }
             }
-          
+
             string s = JsonSerializer.Serialize(products);
             return s;
         }
@@ -86,7 +92,7 @@ namespace DA
                     " Description = @Description," +
                     " QuantityInStock = @QuantityInStock," +
                     " Price = @Price," +
-                    " Location = @Location"+
+                    " Location = @Location" +
                     " WHERE ProductId = @ProductId";
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
