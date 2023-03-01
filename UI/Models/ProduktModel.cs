@@ -3,7 +3,7 @@
     public class ProduktModel
     {
 
-        public string ProduktID { get; set; }
+        public string ProductId { get; set; }
         public string Title { get; set; }
         public int? QuantityInStock { get; set; }
         public string Location { get; set; }

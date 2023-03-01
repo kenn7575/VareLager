@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,13 +13,13 @@ namespace DA
     {
         public string Retrieve(string Id)
         {
-            var products = new List<Produkt>();
+            var products = new List<Product>();
             
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
                
-                string Query = "SELECT * FROM Products WHERE ProduktID = \'"+ Id+"\'";
+                string Query = "SELECT * FROM Products WHERE ProductId = \'"+ Id+"\'";
                 
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
@@ -26,8 +27,8 @@ namespace DA
                     {
                         while (reader.Read())
                         {
-                            var product = new Produkt();
-                            product.ProduktID = reader["ProduktID"] as string;
+                            var product = new Product();
+                            product.ProductId = reader["ProductId"] as string;
                             product.Title = reader["Title"] as string;
                             product.Description = reader["Description"] as string;
                             product.Location = reader["Location"] as string;
@@ -45,7 +46,7 @@ namespace DA
         //method that retreves all products from the database
         public string Retrieve()
         {
-            var products = new List<Produkt>();
+            var products = new List<Product>();
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -56,14 +57,14 @@ namespace DA
                     {
                         while (reader.Read())
                         {
-                            Produkt product = new Produkt();
-                            product.ProduktID = reader["ProduktID"] as string;
+                            Product product = new Product();
+                            product.ProductId = reader["ProductId"] as string;
                             product.Title = reader["Title"] as string;
                             product.Description = reader["Description"] as string;
                             product.Location = reader["Location"] as string;
                             product.QuantityInStock = reader["QuantityInStock"] as int?;
                             product.Price = reader["Price"] as double?;
-                            product.Type = reader["Type"] as string;
+                            product.Type = (ItemType)Enum.Parse(typeof(ItemType), reader["Type"] as string) ;
 
                             products.Add(product);
                         }
@@ -75,7 +76,7 @@ namespace DA
             return s;
         }
         //method that updates a product in the database
-        public void Update(Produkt product)
+        public void Update(Product product)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -86,10 +87,10 @@ namespace DA
                     " QuantityInStock = @QuantityInStock," +
                     " Price = @Price," +
                     " Location = @Location"+
-                    " WHERE ProduktID = @ProduktID";
+                    " WHERE ProductId = @ProductId";
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
-                    command.Parameters.AddWithValue("@ProduktID", product.ProduktID);
+                    command.Parameters.AddWithValue("@ProductId", product.ProductId);
                     command.Parameters.AddWithValue("@Title", product.Title);
                     command.Parameters.AddWithValue("@Description", product.Description);
                     command.Parameters.AddWithValue("@Location", product.Location);
@@ -100,16 +101,16 @@ namespace DA
             }
         }
         //method that creates a new product in the database
-        public void Create(Produkt product)
+        public void Create(Product product)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string Query = "INSERT INTO Products (ProduktID, Title, Description, Location, QuantityInStock, Price) " +
-                    "VALUES (@ProduktID, @Title, @Description, @Location, @QuantityInStock, @Price)";
+                string Query = "INSERT INTO Products (ProductId, Title, Description, Location, QuantityInStock, Price) " +
+                    "VALUES (@ProductId, @Title, @Description, @Location, @QuantityInStock, @Price)";
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
-                    command.Parameters.AddWithValue("@ProduktID", product.ProduktID);
+                    command.Parameters.AddWithValue("@ProductId", product.ProductId);
                     command.Parameters.AddWithValue("@Title", product.Title);
                     command.Parameters.AddWithValue("@Description", product.Description);
                     command.Parameters.AddWithValue("@Location", product.Location);

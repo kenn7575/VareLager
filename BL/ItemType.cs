@@ -2,6 +2,6 @@
 {   
 public enum ItemType
 {
-    Fysisk, Print
+    Fysisk = 0, Print  =1
 }
 }

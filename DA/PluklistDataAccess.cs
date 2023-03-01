@@ -24,7 +24,7 @@ namespace DA
                     {
                         while (reader.Read())
                         {
-                            pluklist.PluklistId = reader["ProduktId"] as string;
+                            pluklist.PluklistId = reader["ProductId"] as string;
                             pluklist.Name = reader["Name"] as string;
                             pluklist.shipping = reader["Shipping"] as string;
                             pluklist.address = reader["Address"] as string;
@@ -50,8 +50,8 @@ namespace DA
                             orderItem.SalesPrice = (float)reader["SalesPrice"];
                             ProduktDataAccess produktDataAccess = new();
                             string serializedProdukt = produktDataAccess.Retrieve(orderItem.ProductId);
-                            Produkt produkt = JsonSerializer.Deserialize<Produkt>(serializedProdukt);
-                            item.ProductId = produkt.ProduktID;
+                            Product produkt = JsonSerializer.Deserialize<Product>(serializedProdukt);
+                            item.ProductId = produkt.ProductId;
                             item.Title = produkt.Title;
                             item.Type = produkt.Type;
                             item.Amount = orderItem.Quantity;
@@ -81,14 +81,15 @@ namespace DA
                         {
                             Pluklist pluklist = new()
                             {
-                                PluklistId = reader["ProduktId"] as string,
+                                PluklistId = reader["ProductId"] as string,
                                 Name = reader["Name"] as string,
                                 shipping = reader["Shipping"] as string,
                                 address = reader["Address"] as string,
                                 PluklistStatus = reader["PluklistStatus"] as string,
                                 CreateDate = (DateTime)reader["DateCreated"],
                                 FinishedDateDate = (DateTime)reader["DateFinished"],
-                                OrderItemId = reader["OrderItem"] as string
+                                OrderItemId = reader["OrderItem"] as string,
+                                
                             };
                             pluklists.Add(pluklist);
                         }
@@ -111,8 +112,8 @@ namespace DA
                                 orderItem.SalesPrice = (float)reader["SalesPrice"];
                                 ProduktDataAccess produktDataAccess = new();
                                 string serializedProdukt = produktDataAccess.Retrieve(orderItem.ProductId);
-                                Produkt produkt = JsonSerializer.Deserialize<Produkt>(serializedProdukt);
-                                item.ProductId = produkt.ProduktID;
+                                Product produkt = JsonSerializer.Deserialize<Product>(serializedProdukt);
+                                item.ProductId = produkt.ProductId;
                                 item.Title = produkt.Title;
                                 item.Type = produkt.Type;
                                 item.Amount = orderItem.Quantity;

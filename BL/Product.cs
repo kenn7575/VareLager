@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Produkt : DataTracking
+    public class Product : DataTracking
     {
-        public string ProduktID { get; set; }
+        public string ProductId { get; set; }
         public string Title { get; set; }
         public int? QuantityInStock { get; set; }
         public string Location { get; set; }
@@ -21,7 +21,7 @@ namespace BL
         {
             //validate all fields are filled in
             
-            if (string.IsNullOrWhiteSpace(ProduktID)) return false;
+            if (string.IsNullOrWhiteSpace(ProductId)) return false;
             if (string.IsNullOrWhiteSpace(Title)) return false;
             if (string.IsNullOrWhiteSpace(Location)) return false;
             if (string.IsNullOrWhiteSpace(Description)) return false;

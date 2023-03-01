@@ -10,34 +10,34 @@ namespace BL
     public class ProduktRepository
     {
         //methods 
-        public List<Produkt> Retrieve(string Id)
+        public List<Product> Retrieve(string Id)
         {
-            var products = new List<Produkt>();
+            var products = new List<Product>();
             var da = new ProduktDataAccess();
             var json = da.Retrieve(Id);
-            products = JsonSerializer.Deserialize<List<Produkt>>(json);
+            products = JsonSerializer.Deserialize<List<Product>>(json);
             return products;
         }
         //retreve all
-        public List<Produkt> Retrieve()
+        public List<Product> Retrieve()
         {
-            var products = new List<Produkt>();
+            var products = new List<Product>();
             var da = new ProduktDataAccess();
             string json = da.Retrieve(); //TODO: fix error
-            products = JsonSerializer.Deserialize<List<Produkt>>(json); //TODO: fix error
+            products = JsonSerializer.Deserialize<List<Product>>(json); //TODO: fix error
             return products;
         }
         //update product
-        public void Save(Produkt product)
+        public void Save(Product product)
         {
             if (!product.IsValid) return;
             if (!product.HasChanges) return;
 
             var da = new ProduktDataAccess();
-            var productDa = new DA.Produkt()
+            var productDa = new DA.Product()
             {
 
-                ProduktID = product.ProduktID,
+                ProductId = product.ProductId,
                 Title = product.Title,
                 Description = product.Description,
                 Location = product.Location,

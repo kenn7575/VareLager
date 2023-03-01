@@ -11,14 +11,14 @@ namespace UI.Controllers
         public ActionResult Index()
         { 
             ProduktRepository repo = new ProduktRepository();
-            List<BL.Produkt> produkts = repo.Retrieve().ToList();
+            List<BL.Product> produkts = repo.Retrieve().ToList();
             List<ProduktModel> produktModels = new List<ProduktModel>();
             
-            foreach (BL.Produkt product in produkts)
+            foreach (BL.Product product in produkts)
             {
                 
                 ProduktModel produktModel = new();
-                produktModel.ProduktID = product.ProduktID;
+                produktModel.ProductId = product.ProductId;
                 produktModel.Title = product.Title;
                 produktModel.Description = product.Description;
                 produktModel.Price = product.Price;
@@ -45,9 +45,9 @@ namespace UI.Controllers
             {
                 //save product to database
                 ProduktRepository repo = new ProduktRepository();
-                BL.Produkt productToSave = new BL.Produkt()
+                BL.Product productToSave = new BL.Product()
                 {
-                    ProduktID = produkt.ProduktID,
+                    ProductId = produkt.ProductId,
                     Title = produkt.Title,
                     Description = produkt.Description,
                     Price = produkt.Price,
@@ -69,12 +69,12 @@ namespace UI.Controllers
         public ActionResult Edit(string id)
         {
             ProduktRepository repo = new ProduktRepository();
-            List<BL.Produkt> products = repo.Retrieve(id);
+            List<BL.Product> products = repo.Retrieve(id);
 
             if (products.Count > 0)
             {
                 ProduktModel produktModel = new();
-                produktModel.ProduktID = products[0].ProduktID;
+                produktModel.ProductId = products[0].ProductId;
                 produktModel.Title = products[0].Title;
                 produktModel.Description = products[0].Description;
                 produktModel.Price = products[0].Price;
@@ -94,9 +94,9 @@ namespace UI.Controllers
             {
                 //save product to database
                 ProduktRepository repo = new ProduktRepository();
-                BL.Produkt productToSave = new BL.Produkt()
+                BL.Product productToSave = new BL.Product()
                 {
-                    ProduktID = id,
+                    ProductId = id,
                     Title = produkt.Title,
                     Description = produkt.Description,
                     Price = produkt.Price,
