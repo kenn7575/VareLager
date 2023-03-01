@@ -139,45 +139,45 @@ namespace UI.Controllers
         }
 
 
-        public ActionResult GenerateJson()
-        {
-            PluklistModel pm = PluklistModel.GetInstance();
-            if (pm.Validate())
-            {
-                List<Item> blItems = new List<Item>();
-                foreach (ItemModel item in pm.Lines)
-                {
+        //public ActionResult GenerateJson()
+        //{
+            //PluklistModel pm = PluklistModel.GetInstance();
+            //if (pm.Validate())
+            //{
+            //    List<Item> blItems = new List<Item>();
+            //    foreach (ItemModel item in pm.Lines)
+            //    {
 
-                    Item blItem = new Item()
-                    {
+            //        Item blItem = new Item()
+            //        {
 
-                        Type = item.Type,
-                        Amount = item.Amount,
-                        ProductId = item.ProductID,
-                        Title = item.Title,
-                    };
-                    blItems.Add(blItem);
+            //            Type = item.Type,
+            //            Amount = item.Amount,
+            //            ProductId = item.ProductID,
+            //            Title = item.Title,
+            //        };
+            //        blItems.Add(blItem);
 
-                }
-                Pluklist p = new Pluklist()
-                {
-                    Name = pm.Name,
-                    Adresse = pm.Adresse,
-                    Forsendelse = pm.Forsendelse,
-                    Lines = blItems
-                };
-
-
-            GenerateJSON generateJson = new();
-            generateJson.Generate(p);
+            //    }
+            //    Pluklist p = new Pluklist()
+            //    {
+            //        Name = pm.Name,
+            //        Adresse = pm.Adresse,
+            //        Forsendelse = pm.Forsendelse,
+            //        Lines = blItems
+            //    };
 
 
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                return View();
-            }
-        }
+            //GenerateJSON generateJson = new();
+            //generateJson.Generate(p);
+
+
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //else
+            //{
+            //    return View();
+        //    //}
+        //}
     }
 }
