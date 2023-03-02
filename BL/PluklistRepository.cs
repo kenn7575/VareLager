@@ -15,7 +15,7 @@ namespace Main_BL
         public BL.Pluklist Retrieve(string Id)
         {
             BL.Pluklist pluklist = new();
-            ProduktDataAccess da = new();
+            PluklistDataAccess da = new();
             string json = da.Retrieve(Id);
             pluklist = JsonSerializer.Deserialize<BL.Pluklist>(json);
             
@@ -24,7 +24,7 @@ namespace Main_BL
         public List<BL.Pluklist> Retrieve()
         {
             List<BL.Pluklist> pluklists = new();
-            ProduktDataAccess da = new();
+            PluklistDataAccess da = new();
             string json = da.Retrieve();
             pluklists = JsonSerializer.Deserialize<List<BL.Pluklist>>(json);
 

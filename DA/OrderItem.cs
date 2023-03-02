@@ -12,7 +12,7 @@ namespace DA
         public string? OrderItemId { get; set; }
         public int? Quantity { get; set; }
         public string? ProductId { get; set; }
-        public float? SalesPrice { get; set; }
+        public double? SalesPrice { get; set; }
     }
 }
 

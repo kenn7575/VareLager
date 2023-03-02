@@ -13,7 +13,7 @@ namespace DA
     {
         public string Retrieve(string Id)
         {
-            var products = new List<Product>();
+            Product product = new();
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -27,27 +27,21 @@ namespace DA
                     {
                         while (reader.Read())
                         {
-                            var product = new Product();
+                            
                             product.ProductId = reader["ProductId"] as string;
                             product.Title = reader["Title"] as string;
                             product.Description = reader["Description"] as string;
                             product.Location = reader["Location"] as string;
-                            product.QuantityInStock = reader["QuantityInStock"] as int?;
-                            product.Price = reader["Price"] as double?;
-                            if ((int)reader["Type"] == 0)
-                            {
-                                product.Type = ItemType.Fysisk;
-                            }
-                            else
-                            {
-                                product.Type = ItemType.Print;
-                            }
-                            products.Add(product);
+                            product.QuantityInStock = (int)reader["QuantityInStock"];
+                            product.Price = (double)reader["Price"];
+                            product.Type = reader["Type"] as int?;
+                            
+                           
                         }
                     }
                 }
             }
-            return JsonSerializer.Serialize(products);
+            return JsonSerializer.Serialize(product);
         }
         //method that retreves all products from the database
         public string Retrieve()
@@ -68,9 +62,24 @@ namespace DA
                             product.Title = reader["Title"] as string;
                             product.Description = reader["Description"] as string;
                             product.Location = reader["Location"] as string;
-                            product.QuantityInStock = reader["QuantityInStock"] as int?;
-                            product.Price = reader["Price"] as double?;
-                            product.Type = (ItemType)Enum.Parse(typeof(ItemType), reader["Type"] as string);
+                            product.QuantityInStock = (int?)reader["QuantityInStock"];
+                            product.Price = (double?)reader["Price"];
+                            try
+                            {
+                                product.Type = (int)reader["Type"];
+                            }
+                            catch (Exception)
+                            {
+                                product.Type = null;
+                            }
+                             
+
+
+
+
+
+
+
 
                             products.Add(product);
                         }

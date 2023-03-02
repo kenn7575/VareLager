@@ -6,7 +6,7 @@ namespace UI.Models
     {
         public string ProductID { get; set; }
         public string Title { get; set; }
-        public ItemType Type { get; set; }
+        public int Type { get; set; }
         public int Amount { get; set; }
         public bool HasChanced { get; set; }
     }

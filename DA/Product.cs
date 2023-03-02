@@ -11,7 +11,7 @@ namespace DA
         public string? Location { get; set; }
         public double? Price { get; set; }
         public string? Description { get; set; }
-        public ItemType? Type { get; set; }
+        public int? Type { get; set; }
     }
 }
  
