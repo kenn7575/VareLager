@@ -14,9 +14,9 @@ namespace DA
         public string? shipping { get; set; }
         public string? address { get; set; }
         public string? PluklistStatus { get; set; }
-        public string? CreateDate { get; set; }
-        public string? FinishedDateDate { get; set; }
-        public int? OrderItemId { get; set; }
+        public string? DateCreated { get; set; }
+        public string? DateFinished { get; set; }
+
         public List<Item>? Items { get; set;}
 
     }

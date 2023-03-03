@@ -21,7 +21,21 @@ namespace BL
         {
             PluklistRepository pluklistRepository = new();
             List<Pluklist> pluklists = pluklistRepository.Retrieve();
-            Console.ReadLine();
+
+            BL.Pluklist pluklist = new() {
+                
+                Name = "Plukliste 1",
+                shipping = "GLS",
+                DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                DateFinished = "",
+                address = "Hovedgaden 1",
+                PluklistStatus = "Aktiv",
+                IsNeW = true,
+                HasChanges= true,
+            };
+            
+            pluklistRepository.Save(pluklist);
+        }
             //    Files xmlFiles = new("filesToImport", "export");
             //    xmlFiles.ImportFiles();
             //    while (readKey != 'Q')
@@ -117,7 +131,7 @@ namespace BL
             //    Console.Write(letter);
             //    Console.ForegroundColor = ConsoleColor.White;
             //    Console.WriteLine(message);
-        }
+        
     }
 }
 

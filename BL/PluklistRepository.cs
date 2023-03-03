@@ -30,5 +30,51 @@ namespace Main_BL
 
             return pluklists;
         }
+        public void Save(BL.Pluklist pluklist)
+        {
+            if (!pluklist.IsValid) return;
+            if (!pluklist.HasChanges) return;
+
+            List<DA.Item> orderItems= new();
+            foreach (var item in pluklist.Items)
+            {
+                DA.Item orderItem = new()
+                {
+                    PluklistId = item.PluklistId,
+                    Amount = item.Amount,
+                    ProductId = item.ProductId,
+                    SalesPrice = item.SalesPrice,
+                    Type= item.Type,
+                    Title= item.Title,
+                    Description= item.Description,
+                    Price= item.Price,
+                };
+                orderItems.Add(orderItem);
+            }
+
+            PluklistDataAccess pluklistDataAccess = new ();
+            DA.Pluklist DA_Pluklist = new()
+            {
+
+                PluklistId= pluklist.PluklistId,
+                Name = pluklist.Name,
+                shipping = pluklist.shipping,
+                Items= orderItems,
+                DateCreated = pluklist.DateCreated,
+                DateFinished= pluklist.DateFinished,
+                address = pluklist.address,
+            };
+            if (pluklist.IsNeW)
+            {
+                pluklistDataAccess.Create(DA_Pluklist);
+            }
+            else
+            {
+                //pluklistDataAccess.Update(DA_Pluklist);
+            }
+
+
+
+        }
     }
 }

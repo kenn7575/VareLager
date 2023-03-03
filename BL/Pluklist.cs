@@ -16,9 +16,9 @@ namespace BL
         public string? shipping { get; set; }
         public string? address { get; set; }
         public string? PluklistStatus { get; set; }
-        public string? CreateDate { get; set; }
-        public string? FinishedDateDate { get; set; }
-        public int? OrderItemId { get; set; }
+        public string? DateCreated { get; set; }
+        public string? DateFinished { get; set; }
+        
         public List<OrderItem>? Items { get; set; }
 
         //methods
@@ -28,10 +28,10 @@ namespace BL
             if (string.IsNullOrWhiteSpace(shipping)) return false;
             if (string.IsNullOrWhiteSpace(address)) return false;
             if (string.IsNullOrWhiteSpace(PluklistStatus)) return false;
-            if (string.IsNullOrWhiteSpace(CreateDate)) return false;
-            if (string.IsNullOrWhiteSpace(FinishedDateDate)) return false;
-            if (PluklistId == null) return false;
-            if (OrderItemId == null) return false;
+            if (string.IsNullOrWhiteSpace(DateCreated)) return false;
+            if (string.IsNullOrWhiteSpace(DateFinished) && IsNeW == false) return false;
+            if (PluklistId == null && IsNeW == false) return false;
+            
             
             if (Items == null) return false;
             return true;
