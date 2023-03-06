@@ -1,17 +1,17 @@
 ﻿<head>
     <link rel="stylesheet" href="~/css/FunStuff.css" asp-append-version="true" />
-    
+
 
 </head>
 
-@model UI.Models.PluklistModel
+@model UI.Models.PluklistModelSingleton
 
 @{
     ViewData["Title"] = "Index";
 }
 <div class="d-flex justify-content-center">
 
-    <h1>Lav ny plukliste</h1>   
+    <h1>Lav ny plukliste</h1>
 </div>
 
 @if (!Model.Validate())
@@ -23,7 +23,8 @@
 
 else
 {
-    <a asp-action="GenerateJson" class="btn btn-primary ">Save and export</a>
+    
+       <a asp-action="Save" class="btn btn-primary ">Save and upload</a>
 
     <br />
     <h2>Info</h2>
@@ -35,10 +36,10 @@ else
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Adresse)
+                    @Html.DisplayNameFor(model => model.Address)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Forsendelse)
+                    @Html.DisplayNameFor(model => model.Shipping)
                 </th>
                 <th></th>
             </tr>
@@ -49,10 +50,10 @@ else
                     @Html.DisplayFor(model => model.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.Adresse)
+                    @Html.DisplayFor(model => model.Address)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.Forsendelse)
+                    @Html.DisplayFor(model => model.Shipping)
                 </td>
                 <td>
                     @Html.ActionLink("Rediger", "EditPluklist", new {})
@@ -83,31 +84,43 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var line in Model.Lines)
+            @foreach (var line in Model.Items)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => line.ProductID)
+                        @Html.DisplayFor(modelItem => line.ProductId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => line.Title)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => line.Type)
-                    </td>
+
+                    @if (line.Type == 0)
+                    {
+                        <td>
+                            Fysisk
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td>
+                            Print
+                        </td>
+                    })
+
                     <td>
                         @Html.DisplayFor(modelItem => line.Amount)
                     </td>
 
                     <td>
                         @Html.ActionLink("Rediger", "EditPluklistLine", line.HasChanced =true)
-                        <a  asp-action="DeletePluklistLine">Delete</a>
-                        
-                        
+                        <a asp-action="DeletePluklistLine">Delete</a>
+
+
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-   
+
 }

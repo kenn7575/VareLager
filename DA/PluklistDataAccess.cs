@@ -17,20 +17,20 @@ namespace DA
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string Query1 = "SELECT * FROM Pluklist WHERE PluklistId = \'" + Id + "\'";
+                string Query1 = "SELECT * FROM Pluklist WHERE PluklistId = \'" + Id + "\' AND PluklistStatus = 'Aktiv'";
                 using (SqlCommand command = new SqlCommand(Query1, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            pluklist.PluklistId = (int)reader["ProductId"];
+                            pluklist.PluklistId = (int)reader["PluklistId"];
                             pluklist.Name = reader["Name"] as string;
-                            pluklist.shipping = reader["Shipping"] as string;
-                            pluklist.address = reader["Address"] as string;
+                            pluklist.Shipping = reader["Shipping"] as string;
+                            pluklist.Address = reader["Address"] as string;
                             pluklist.PluklistStatus = reader["PluklistStatus"] as string;
                             pluklist.DateCreated = reader["DateCreated"] as string;
-                            pluklist.DateCreated = reader["DateFinished"] as string;
+                            pluklist.DateFinished = reader["DateFinished"] as string;
                            
                         }
                     }
@@ -73,7 +73,7 @@ namespace DA
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string Query1 = "SELECT * FROM Pluklist";
+                string Query1 = "SELECT * FROM Pluklist WHERE PluklistStatus = 'Aktiv'";
                 using (SqlCommand command = new SqlCommand(Query1, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -84,8 +84,8 @@ namespace DA
                             {
                                 PluklistId = (int)reader["PluklistId"],
                                 Name = reader["Name"] as string,
-                                shipping = reader["Shipping"] as string,
-                                address = reader["Address"] as string,
+                                Shipping = reader["Shipping"] as string,
+                                Address = reader["Address"] as string,
                                 PluklistStatus = reader["PluklistStatus"] as string,
                                 DateCreated = reader["DateCreated"] as string,
                                 DateFinished = reader["DateFinished"] as string,
@@ -141,13 +141,13 @@ namespace DA
             {
                 int pluklistId = 0;
                 connection.Open();
-                string Query1 = "INSERT INTO Pluklist (Name, Shipping, Address, PluklistStatus, DateCreated, DateFinished) output inserted.PluklistId" +
+                string Query1 = "INSERT INTO Pluklist (Name, Shipping, Address, PluklistStatus, DateCreated, DateFinished) output inserted.PluklistId " +
                     "VALUES (@Name, @Shipping, @Address, @PluklistStatus, @DateCreated, @DateFinished)";
                 using (SqlCommand command = new SqlCommand(Query1, connection))
                 {
                     command.Parameters.AddWithValue("@Name", pluklist.Name);
-                    command.Parameters.AddWithValue("@Shipping", pluklist.shipping);
-                    command.Parameters.AddWithValue("@Address", pluklist.address);
+                    command.Parameters.AddWithValue("@Shipping", pluklist.Shipping);
+                    command.Parameters.AddWithValue("@Address", pluklist.Address);
                     command.Parameters.AddWithValue("@PluklistStatus", pluklist.PluklistStatus);
                     command.Parameters.AddWithValue("@DateCreated", pluklist.DateCreated);
                     command.Parameters.AddWithValue("@DateFinished", pluklist.DateFinished);
@@ -173,6 +173,27 @@ namespace DA
 
 
         }
+        //update pluklist
+        public void Update(Pluklist pluklist)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                string Query = "UPDATE Pluklist SET Name = @Name, Shipping = @Shipping, Address = @Address, PluklistStatus = @PluklistStatus, DateCreated = @DateCreated, DateFinished = @DateFinished WHERE PluklistId = @PluklistId";
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", pluklist.Name);
+                    command.Parameters.AddWithValue("@Shipping", pluklist.Shipping);
+                    command.Parameters.AddWithValue("@Address", pluklist.Address);
+                    command.Parameters.AddWithValue("@PluklistStatus", pluklist.PluklistStatus);
+                    command.Parameters.AddWithValue("@DateCreated", pluklist.DateCreated);
+                    command.Parameters.AddWithValue("@DateFinished", pluklist.DateFinished);
+                    command.Parameters.AddWithValue("@PluklistId", pluklist.PluklistId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+       
     }
 
 }

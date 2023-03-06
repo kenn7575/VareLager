@@ -45,7 +45,7 @@ namespace BL
                 Price = product.Price
 
             };
-            if (product.IsNeW)
+            if (product.IsNew)
             {
                 da.Create(productDa);
             }

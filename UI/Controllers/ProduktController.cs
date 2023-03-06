@@ -54,7 +54,7 @@ namespace UI.Controllers
                     QuantityInStock = produkt.QuantityInStock,
                     Location = produkt.Location,
                     HasChanges = true,
-                    IsNeW = true,
+                    IsNew = true,
                 };
                 repo.Save(productToSave);
                 return RedirectToAction(nameof(Index));

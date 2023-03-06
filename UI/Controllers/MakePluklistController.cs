@@ -1,4 +1,5 @@
 ﻿using BL;
+using Main_BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UI.Models;
@@ -10,7 +11,7 @@ namespace UI.Controllers
         // GET: MakePluklist
         public ActionResult Index()
         {
-            PluklistModel pluklistModel =  PluklistModel.GetInstance();
+            PluklistModelSingleton pluklistModel =  PluklistModelSingleton.GetInstance();
             return View(pluklistModel);
         }
 
@@ -24,15 +25,16 @@ namespace UI.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePluklist(Pluklist pluklist)
+        public ActionResult CreatePluklist(PluklistModelSingleton pluklist)
         {
             try
             {
-                PluklistModel.Reset();
-                PluklistModel pluklistModel = PluklistModel.GetInstance();
+                PluklistModelSingleton.Reset();
+                PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
                 pluklistModel.Name = pluklist.Name;
-                pluklistModel.Adresse = pluklist.Adresse;
-                pluklistModel.Forsendelse = pluklist.Forsendelse;
+                pluklistModel.Address = pluklist.Address;
+                pluklistModel.Shipping = pluklist.Shipping;
+                
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -46,7 +48,7 @@ namespace UI.Controllers
         
         public ActionResult EditPluklist()
         {
-            PluklistModel pluklistModel = PluklistModel.GetInstance();
+            PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
 
             return View(pluklistModel);
         }
@@ -58,10 +60,10 @@ namespace UI.Controllers
         {
             try
             {
-                PluklistModel pluklistModel = PluklistModel.GetInstance();
+                PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
                 pluklistModel.Name = pluklist.Name;
-                pluklistModel.Adresse = pluklist.Adresse;
-                pluklistModel.Forsendelse = pluklist.Forsendelse;
+                pluklistModel.Address = pluklist.Address;
+                pluklistModel.Shipping = pluklist.Shipping;
 
                 return RedirectToAction(nameof(Index));
             }
@@ -73,8 +75,8 @@ namespace UI.Controllers
 
         public ActionResult EditPluklistLine()
         {
-            PluklistModel pluklistModel = PluklistModel.GetInstance();
-            ItemModel item = pluklistModel.Lines.Find(x => x.HasChanced == true);
+            PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
+            ItemModel item = pluklistModel.Items.Find(x => x.HasChanced == true);
             return View(item);
         }
 
@@ -86,10 +88,10 @@ namespace UI.Controllers
             try
             {
                 
-                PluklistModel pluklistModel = PluklistModel.GetInstance();
-                pluklistModel.Lines.Remove(pluklistModel.Lines.Find(x => x.HasChanced == true));
+                PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
+                pluklistModel.Items.Remove(pluklistModel.Items.Find(x => x.HasChanced == true));
                 pluklistModel.AddItem(itemModel);
-                pluklistModel.Lines.Find(x => x.ProductID == itemModel.ProductID);
+                pluklistModel.Items.Find(x => x.ProductId == itemModel.ProductId);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -110,7 +112,7 @@ namespace UI.Controllers
         {
             try
             {
-                PluklistModel pluklist = PluklistModel.GetInstance();
+                PluklistModelSingleton pluklist = PluklistModelSingleton.GetInstance();
                 pluklist.AddItem(item);
                 return RedirectToAction(nameof(Index));
             }
@@ -128,8 +130,8 @@ namespace UI.Controllers
 
             try
             {
-                PluklistModel pluklistModel = PluklistModel.GetInstance();
-                pluklistModel.Lines.Remove(pluklistModel.Lines.Find(x => x.HasChanced == true));
+                PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
+                pluklistModel.Items.Remove(pluklistModel.Items.Find(x => x.HasChanced == true));
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -137,47 +139,26 @@ namespace UI.Controllers
                 return View();
             }
         }
+        public ActionResult Save()
+        {
+            PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
+            Pluklist pluklist = new Pluklist()
+            {
+                Name = pluklistModel.Name,
+                Address = pluklistModel.Address,
+                Shipping = pluklistModel.Shipping,
+                PluklistStatus = "Aktiv",
+                DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                DateFinished = "",
+                IsNew = true,
+                HasChanges = true,
+            };
 
+            PluklistRepository pluklistRepository = new();
+            pluklistRepository.Save(pluklist);
+            return RedirectToAction(nameof(Index));
+        }
 
-        //public ActionResult GenerateJson()
-        //{
-            //PluklistModel pm = PluklistModel.GetInstance();
-            //if (pm.Validate())
-            //{
-            //    List<Item> blItems = new List<Item>();
-            //    foreach (ItemModel item in pm.Lines)
-            //    {
-
-            //        Item blItem = new Item()
-            //        {
-
-            //            Type = item.Type,
-            //            Amount = item.Amount,
-            //            ProductId = item.ProductID,
-            //            Title = item.Title,
-            //        };
-            //        blItems.Add(blItem);
-
-            //    }
-            //    Pluklist p = new Pluklist()
-            //    {
-            //        Name = pm.Name,
-            //        Adresse = pm.Adresse,
-            //        Forsendelse = pm.Forsendelse,
-            //        Lines = blItems
-            //    };
-
-
-            //GenerateJSON generateJson = new();
-            //generateJson.Generate(p);
-
-
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //else
-            //{
-            //    return View();
-        //    //}
-        //}
+        
     }
 }

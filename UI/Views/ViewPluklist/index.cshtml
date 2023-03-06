@@ -14,23 +14,25 @@
 
 
     <div class="carousel-inner">
-        @{bool first = true;}
+        @{
+            bool first = true;
+        }
         @foreach (var item in Model)
         {
-           
-            if(first == true)
+
+            if (first == true)
             {
                 first = false;
-                <div id="mySlider" class="carousel-item active" >
-                     <div class="d-flex gap-2 justify-content-center">
-            <button class="btn btn-primary">
-                            <a style="color: white !important;  text-decoration: none;" asp-action="Afslut" asp-route-id="@item.">Afslut</a>
-            </button>
-            <button class="btn btn-primary">
-                            <a style="color: white !important;  text-decoration: none;" asp-action="Print" >Print</a>
-            </button>
+                <div id="mySlider" class="carousel-item active">
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button class="btn btn-primary">
+                            <a asp-action="Afslut" asp-route-id="@item.PluklistId">Afslut</a>
+                        </button>
+                        <button class="btn btn-primary">
+                            <a style="color: white !important;  text-decoration: none;" asp-action="Print">Print</a>
+                        </button>
 
-            </div>
+                    </div>
                     <div style="height: fit-content; background-color: #fff;">
                         @*Table *@
                         <table class="table">
@@ -41,10 +43,10 @@
                                         @Html.DisplayNameFor(model => item.Name)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => item.Adresse)
+                                        @Html.DisplayNameFor(model => item.Address)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => item.Forsendelse)
+                                        @Html.DisplayNameFor(model => item.Shipping)
                                     </th>
 
                                 </tr>
@@ -55,10 +57,10 @@
                                         @Html.DisplayFor(model => item.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(model => item.Adresse)
+                                        @Html.DisplayFor(model => item.Address)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(model => item.Forsendelse)
+                                        @Html.DisplayFor(model => item.Shipping)
                                     </td>
 
                                 </tr>
@@ -85,11 +87,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var line in item.Lines)
+                                @foreach (var line in item.Items)
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => line.ProductID)
+                                            @Html.DisplayFor(modelItem => line.ProductId)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => line.Title)
@@ -113,11 +115,11 @@
 
             else
             {
-                
+
                 <div id="mySlider" class="carousel-item">
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 justify-content-center">
                         <button class="btn btn-primary">
-                            <a style="color: white !important;  text-decoration: none;" asp-action="Afslut">Afslut</a>
+                            <a asp-action="Afslut" asp-route-id="@item.PluklistId">Afslut</a>
                         </button>
                         <button class="btn btn-primary">
                             <a style="color: white !important;  text-decoration: none;" asp-action="Print">Print</a>
@@ -134,10 +136,10 @@
                                         @Html.DisplayNameFor(model => item.Name)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => item.Adresse)
+                                        @Html.DisplayNameFor(model => item.Address)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => item.Forsendelse)
+                                        @Html.DisplayNameFor(model => item.Shipping)
                                     </th>
 
                                 </tr>
@@ -148,10 +150,10 @@
                                         @Html.DisplayFor(model => item.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(model => item.Adresse)
+                                        @Html.DisplayFor(model => item.Address)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(model => item.Forsendelse)
+                                        @Html.DisplayFor(model => item.Shipping)
                                     </td>
 
                                 </tr>
@@ -178,11 +180,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var line in item.Lines)
+                                @foreach (var line in item.Items)
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => line.ProductID)
+                                            @Html.DisplayFor(modelItem => line.ProductId)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => line.Title)
@@ -208,8 +210,8 @@
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
-    <button style=" transform: translateX(130px); filter: invert(100%); "class=" carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"  aria-hidden="true"></span>
+    <button style=" transform: translateX(130px); filter: invert(100%); " class=" carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
 </div>

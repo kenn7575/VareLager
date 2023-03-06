@@ -25,13 +25,14 @@ namespace BL
             BL.Pluklist pluklist = new() {
                 
                 Name = "Plukliste 1",
-                shipping = "GLS",
+                Shipping = "GLS",
                 DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 DateFinished = "",
-                address = "Hovedgaden 1",
+                Address = "Hovedgaden 1",
                 PluklistStatus = "Aktiv",
-                IsNeW = true,
+                IsNew = true,
                 HasChanges= true,
+               
             };
             
             pluklistRepository.Save(pluklist);

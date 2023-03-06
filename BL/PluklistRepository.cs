@@ -58,23 +58,21 @@ namespace Main_BL
 
                 PluklistId= pluklist.PluklistId,
                 Name = pluklist.Name,
-                shipping = pluklist.shipping,
+                Shipping = pluklist.Shipping,
                 Items= orderItems,
                 DateCreated = pluklist.DateCreated,
                 DateFinished= pluklist.DateFinished,
-                address = pluklist.address,
+                Address = pluklist.Address,
+                PluklistStatus = pluklist.PluklistStatus,
             };
-            if (pluklist.IsNeW)
+            if (pluklist.IsNew)
             {
                 pluklistDataAccess.Create(DA_Pluklist);
             }
             else
             {
-                //pluklistDataAccess.Update(DA_Pluklist);
+                pluklistDataAccess.Update(DA_Pluklist);
             }
-
-
-
         }
     }
 }
