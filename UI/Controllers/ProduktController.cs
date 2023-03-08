@@ -10,14 +10,14 @@ namespace UI.Controllers
         // GET: ProduktController
         public ActionResult Index()
         { 
-            ProduktRepository repo = new ProduktRepository();
+            ProductRepository repo = new ProductRepository();
             List<BL.Product> produkts = repo.Retrieve().ToList();
-            List<ProduktModel> produktModels = new List<ProduktModel>();
+            List<ProductModel> produktModels = new List<ProductModel>();
             
             foreach (BL.Product product in produkts)
             {
                 
-                ProduktModel produktModel = new();
+                ProductModel produktModel = new();
                 produktModel.ProductId = product.ProductId;
                 produktModel.Title = product.Title;
                 produktModel.Description = product.Description;
@@ -39,12 +39,12 @@ namespace UI.Controllers
         // POST: ProduktController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProduktModel produkt)
+        public ActionResult Create(ProductModel produkt)
         {
             try
             {
                 //save product to database
-                ProduktRepository repo = new ProduktRepository();
+                ProductRepository repo = new ProductRepository();
                 BL.Product productToSave = new BL.Product()
                 {
                     ProductId = produkt.ProductId,
@@ -68,12 +68,12 @@ namespace UI.Controllers
         // GET: ProduktController/Edit/5
         public ActionResult Edit(string id)
         {
-            ProduktRepository repo = new ProduktRepository();
+            ProductRepository repo = new ProductRepository();
             List<BL.Product> products = repo.Retrieve(id);
 
             if (products.Count > 0)
             {
-                ProduktModel produktModel = new();
+                ProductModel produktModel = new();
                 produktModel.ProductId = products[0].ProductId;
                 produktModel.Title = products[0].Title;
                 produktModel.Description = products[0].Description;
@@ -88,12 +88,12 @@ namespace UI.Controllers
         // POST: ProduktController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, ProduktModel produkt)
+        public ActionResult Edit(string id, ProductModel produkt)
         {
             try
             {
                 //save product to database
-                ProduktRepository repo = new ProduktRepository();
+                ProductRepository repo = new ProductRepository();
                 BL.Product productToSave = new BL.Product()
                 {
                     ProductId = id,

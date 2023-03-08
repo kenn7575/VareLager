@@ -1,6 +1,6 @@
 ﻿namespace UI.Models
 {
-    public class ProduktModel
+    public class ProductModel
     {
 
         public string ProductId { get; set; }

@@ -1,7 +1,7 @@
 ﻿using BL;
-using Main_BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Immutable;
 using UI.Models;
 
 namespace UI.Controllers
@@ -102,7 +102,19 @@ namespace UI.Controllers
 
         public ActionResult AddPluklistLine()
         {
-            return View();
+            //TODO: Get all products from and pass into view
+            ProductRepository produktRepository = new();
+            List<Product> products = produktRepository.Retrieve();
+
+            //convert products to ProductModels
+           
+                CreateLineModel createLineModel = new();
+            foreach (Product product in products)
+            {
+
+                createLineModel.Ids.Add(product.ProductId);
+            }
+            return View(createLineModel); ;
         }
 
         
@@ -142,6 +154,15 @@ namespace UI.Controllers
         public ActionResult Save()
         {
             PluklistModelSingleton pluklistModel = PluklistModelSingleton.GetInstance();
+            List<OrderItem> orderItems = new List<OrderItem>();
+            foreach (ItemModel item in pluklistModel.Items)
+            {
+                //TODO: Convert ModelItems to OrderItems
+                OrderItem orderItem = new()
+                {
+                    //...
+                };
+            }
             Pluklist pluklist = new Pluklist()
             {
                 Name = pluklistModel.Name,
@@ -156,6 +177,7 @@ namespace UI.Controllers
 
             PluklistRepository pluklistRepository = new();
             pluklistRepository.Save(pluklist);
+            PluklistModelSingleton.Reset();
             return RedirectToAction(nameof(Index));
         }
 

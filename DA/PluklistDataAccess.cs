@@ -44,11 +44,11 @@ namespace DA
                         while (reader.Read())
                         {
                             OrderItem orderItem = new();
-                            orderItem.PluklistId = reader["PluklistId"] as string;
+                            orderItem.PluklistId = (int)reader["PluklistId"];
                             orderItem.Quantity = (int)reader["Quantity"];
                             orderItem.ProductId = reader["ProductId"] as string;
                             orderItem.SalesPrice = (double)reader["SalesPrice"];
-                            ProduktDataAccess produktDataAccess = new();
+                            ProductDataAccess produktDataAccess = new();
                             string serializedProdukt = produktDataAccess.Retrieve(orderItem.ProductId);
                             Product produkt = JsonSerializer.Deserialize<Product>(serializedProdukt);
                             item.ProductId = produkt.ProductId;
@@ -105,11 +105,11 @@ namespace DA
                             while (reader1.Read())
                             {
                                 OrderItem orderItem = new();
-                                orderItem.PluklistId = reader1["PluklistId"] as string;
+                                orderItem.PluklistId = (int)reader1["PluklistId"];
                                 orderItem.Quantity = (int)reader1["Quantity"];
                                 orderItem.ProductId = reader1["ProductId"] as string;
                                 orderItem.SalesPrice = (double)reader1["SalesPrice"];
-                                ProduktDataAccess produktDataAccess = new();
+                                ProductDataAccess produktDataAccess = new();
                                 string serializedProdukt = produktDataAccess.Retrieve(orderItem.ProductId);
                                 Product produkt = JsonSerializer.Deserialize<Product>(serializedProdukt);
 

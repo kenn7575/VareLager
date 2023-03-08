@@ -8,7 +8,7 @@ using System.Text.Json;
 using BL;
 using System.Reflection;
 
-namespace Main_BL
+namespace BL
 {
     public class PluklistRepository
     {

@@ -7,13 +7,13 @@ using DA;
 
 namespace BL
 {
-    public class ProduktRepository
+    public class ProductRepository
     {
         //methods 
         public List<Product> Retrieve(string Id)
         {
             var products = new List<Product>();
-            var da = new ProduktDataAccess();
+            var da = new ProductDataAccess();
             var json = da.Retrieve(Id);
             products = JsonSerializer.Deserialize<List<Product>>(json);
             return products;
@@ -22,7 +22,7 @@ namespace BL
         public List<Product> Retrieve()
         {
             var products = new List<Product>();
-            var da = new ProduktDataAccess();
+            var da = new ProductDataAccess();
             string json = da.Retrieve(); //TODO: fix error
             products = JsonSerializer.Deserialize<List<Product>>(json); //TODO: fix error
             return products;
@@ -33,7 +33,7 @@ namespace BL
             if (!product.IsValid) return;
             if (!product.HasChanges) return;
 
-            var da = new ProduktDataAccess();
+            var da = new ProductDataAccess();
             var productDa = new DA.Product()
             {
 

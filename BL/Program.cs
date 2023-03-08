@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using static System.Net.WebRequestMethods;
 using System.Text.Json;
-using Main_BL;
+using BL;
 
 namespace BL
 {
@@ -19,23 +19,34 @@ namespace BL
         
         static void Main()
         {
-            PluklistRepository pluklistRepository = new();
-            List<Pluklist> pluklists = pluklistRepository.Retrieve();
-
-            BL.Pluklist pluklist = new() {
-                
-                Name = "Plukliste 1",
+            //pluklist
+            Pluklist pluklist = new()
+            {
+                PluklistId = 12,
+                Name = "Hans Hansen",
                 Shipping = "GLS",
+                Address = "hovedgaden 1",
+                PluklistStatus = "Afsluttet",
                 DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                DateFinished = "",
-                Address = "Hovedgaden 1",
-                PluklistStatus = "Aktiv",
-                IsNew = true,
-                HasChanges= true,
-               
+                DateFinished = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
-            
-            pluklistRepository.Save(pluklist);
+            OrderItem item = new()
+            {
+                PluklistId = 2,
+                Amount = 1,
+                ProductId = "sosgisthsttf",
+                SalesPrice = 100,
+                Type = 0,
+                Title = "Bog 1",
+                Description = "Bog 1",
+                Price = 100,
+            };
+            pluklist.Items.Add(item);
+
+
+            PageRepository pageRepository = new();
+            Page page = pageRepository.Retrieve("PRINT-WELCOME");
+            string updated = page.Personalize(pluklist);
         }
             //    Files xmlFiles = new("filesToImport", "export");
             //    xmlFiles.ImportFiles();

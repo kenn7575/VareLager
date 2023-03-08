@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DA
 {
-    public class ProduktDataAccess : DatabaseAccess
+    public class ProductDataAccess : DatabaseAccess
     {
         public string Retrieve(string Id)
         {
@@ -29,7 +29,7 @@ namespace DA
                         {
                             
                             product.ProductId = reader["ProductId"] as string;
-                            product.Title = reader["Title"] as string;
+                            product.Title = reader["ProductId"] as string;
                             product.Description = reader["Description"] as string;
                             product.Location = reader["Location"] as string;
                             product.QuantityInStock = (int)reader["QuantityInStock"];
@@ -59,7 +59,7 @@ namespace DA
                         {
                             Product product = new Product();
                             product.ProductId = reader["ProductId"] as string;
-                            product.Title = reader["Title"] as string;
+                            product.Title = reader["ProductId"] as string;
                             product.Description = reader["Description"] as string;
                             product.Location = reader["Location"] as string;
                             product.QuantityInStock = (int?)reader["QuantityInStock"];
@@ -97,7 +97,7 @@ namespace DA
             {
                 connection.Open();
                 string Query = "UPDATE Products SET" +
-                    " Title = @Title," +
+                    " ProductId = @ProductId," +
                     " Description = @Description," +
                     " QuantityInStock = @QuantityInStock," +
                     " Price = @Price," +
@@ -106,7 +106,7 @@ namespace DA
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     command.Parameters.AddWithValue("@ProductId", product.ProductId);
-                    command.Parameters.AddWithValue("@Title", product.Title);
+                    command.Parameters.AddWithValue("@ProductId", product.Title);
                     command.Parameters.AddWithValue("@Description", product.Description);
                     command.Parameters.AddWithValue("@Location", product.Location);
                     command.Parameters.AddWithValue("@QuantityInStock", product.QuantityInStock);
@@ -121,12 +121,12 @@ namespace DA
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string Query = "INSERT INTO Products (ProductId, Title, Description, Location, QuantityInStock, Price) " +
-                    "VALUES (@ProductId, @Title, @Description, @Location, @QuantityInStock, @Price)";
+                string Query = "INSERT INTO Products (ProductId, ProductId, Description, Location, QuantityInStock, Price) " +
+                    "VALUES (@ProductId, @ProductId, @Description, @Location, @QuantityInStock, @Price)";
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     command.Parameters.AddWithValue("@ProductId", product.ProductId);
-                    command.Parameters.AddWithValue("@Title", product.Title);
+                    command.Parameters.AddWithValue("@ProductId", product.Title);
                     command.Parameters.AddWithValue("@Description", product.Description);
                     command.Parameters.AddWithValue("@Location", product.Location);
                     command.Parameters.AddWithValue("@QuantityInStock", product.QuantityInStock);

@@ -15,11 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DATests", "DATests\DATests.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{2D78E08A-3DC1-4686-A96E-028CD5EE7B50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Main_BL", "BL\Main_BL.csproj", "{C73AFC3F-F2A4-48F2-99C2-F78EAF4E26BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{C73AFC3F-F2A4-48F2-99C2-F78EAF4E26BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileManager_BL", "FileManager_BL\FileManager_BL.csproj", "{C29F0BDC-490C-4A99-9B3C-583F4CE77ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{712974C4-BC5C-44D7-9417-9A53752590FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{712974C4-BC5C-44D7-9417-9A53752590FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

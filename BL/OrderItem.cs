@@ -11,7 +11,7 @@ namespace BL
     public class OrderItem : DataTracking
     {
         public string? ProductId { get; set; }
-        public string? PluklistId { get; set; }
+        public int? PluklistId { get; set; }
         public string? Title { get; set; }
         public int? Type { get; set; }
         public int? Amount { get; set; }

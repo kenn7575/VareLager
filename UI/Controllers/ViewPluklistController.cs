@@ -1,5 +1,5 @@
 ﻿using BL;
-using Main_BL;
+using BL;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using UI.Models;
@@ -73,6 +73,33 @@ namespace UI.Controllers
             //save pluklist to database
             pluklistRepository.Save(pluklist);
             return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult Print(string id)
+        {
+                      //retreve pluklist from database by id
+            PluklistRepository pluklistRepository = new();
+            Pluklist pluklist = pluklistRepository.Retrieve(id);
+
+            string printType = "";
+            foreach (var item in pluklist.Items)
+            {
+                if (item.ProductId == "PRINT_OPGRADE") { printType = "PRINT_OPGRADE"; continue; }
+                else if (item.ProductId == "PRINT-OPSIGELSE"){ printType = "PRINT-OPSIGELSE"; continue; }
+                else if (item.ProductId == "PRINT-WELCOME") { printType = "PRINT-WELCOME"; continue; }
+            }
+
+            if (printType == null) return RedirectToAction(nameof(Index));
+            PageRepository pageRepo = new();
+            Page page = pageRepo.Retrieve(printType);
+
+            string htmlToPrint = page.Personalize(pluklist);
+
+            PageModel pageModel = new()
+            {
+                InnerHTML = htmlToPrint
+            };
+            return View(pageModel);
         }
     }
 }
